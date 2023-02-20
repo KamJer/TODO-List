@@ -1,14 +1,15 @@
 package com.personal.todolist;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Service
 public class TestService {
 
-    private String helloWorld = "Hello World";
+    private String valueToReturn = "Hello World";
 
-    public String getHelloWorld() {
-        return helloWorld;
+    public String getValueToReturn() {
+        return valueToReturn;
     }
 }
