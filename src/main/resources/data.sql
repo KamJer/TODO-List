@@ -1,1 +1,1 @@
-INSERT INTO HelloWorld (valua) VALUES ('HelloWorld');
+INSERT INTO HelloWorld (valua) VALUES ('Hello World');
