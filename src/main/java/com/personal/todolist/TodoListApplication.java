@@ -12,10 +12,13 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.sql.DataSource;
 import java.util.Arrays;
 
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
+//@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
+@SpringBootApplication
 public class TodoListApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(TodoListApplication.class, args);
+
+		System.out.println("done");
 	}
 }
