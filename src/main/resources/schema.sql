@@ -1,0 +1,5 @@
+CREATE TABLE HelloWorld (
+    id INTEGER NOT NULL AUTO_INCREMENT,
+    "value" VARCHAR(128),
+    PRIMARY KEY (id)
+    );
