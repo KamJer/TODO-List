@@ -1,1 +1,2 @@
-INSERT INTO HelloWorld ("value") VALUES ('Hello World');
+INSERT INTO "USER" (login, password, name) VALUES ('Kamil', 'test', 'kamil');
+

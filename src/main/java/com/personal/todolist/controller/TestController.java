@@ -1,5 +1,6 @@
-package com.personal.todolist;
+package com.personal.todolist.controller;
 
+import com.personal.todolist.TestService;
 import com.personal.todolist.exceptions.HelloWorldException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,6 @@ public class TestController{
 
     @GetMapping("/getHello")
     public String getHelloWorld () throws HelloWorldException {
-        return testService.getValueToReturn();
+        return testService.getUserNameToReturn();
     }
 }
