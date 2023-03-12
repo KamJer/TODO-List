@@ -13,22 +13,63 @@ public class ToDoItem {
         IN_PROGRESS,
         DONE
     }
+
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name="ID")
     private Long id;
 
-    @Column(name="value")
+    @Column(name="VALUE")
     private String value;
 
     @Enumerated(EnumType.STRING)
-    @Column(name="stage", nullable = false)
+    @Column(name="STAGE", nullable = false)
     private Stage stage;
 
-    @Column(name="updated_timestamp")
+    @Column(name="UPDATED_TIMESTAMP")
     private Timestamp updatedTimestamp;
 
     @ManyToOne
-    @JoinColumn(name = "list_id", referencedColumnName = "id")
+    @JoinColumn(name = "LIST_ID", referencedColumnName = "ID")
     private ToDoList toDoList;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public String getStage() {
+        return stage.toString();
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    public Timestamp getUpdatedTimestamp() {
+        return updatedTimestamp;
+    }
+
+    public void setUpdatedTimestamp(Timestamp updatedTimestamp) {
+        this.updatedTimestamp = updatedTimestamp;
+    }
+
+    public ToDoList getToDoList() {
+        return toDoList;
+    }
+
+    public void setToDoList(ToDoList toDoList) {
+        this.toDoList = toDoList;
+    }
 }

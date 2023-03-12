@@ -16,8 +16,12 @@ public class TestController{
         this.testService = testService;
     }
 
-    @GetMapping("/getHello")
+    @GetMapping("/getName")
     public String getHelloWorld () throws HelloWorldException {
         return testService.getUserNameToReturn();
+    }
+    @GetMapping("/getItemCountInList")
+    public int getHItemCount () throws HelloWorldException{
+        return testService.getListItemCountInList(1);
     }
 }
