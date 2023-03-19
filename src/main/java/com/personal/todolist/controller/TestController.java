@@ -1,9 +1,7 @@
 package com.personal.todolist.controller;
 
-import com.personal.todolist.TestService;
-import com.personal.todolist.exceptions.HelloWorldException;
+import com.personal.todolist.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -14,14 +12,5 @@ public class TestController{
     @Autowired
     public TestController(TestService testService) {
         this.testService = testService;
-    }
-
-    @GetMapping("/getName")
-    public String getHelloWorld () throws HelloWorldException {
-        return testService.getUserNameToReturn();
-    }
-    @GetMapping("/getItemCountInList")
-    public int getHItemCount () throws HelloWorldException{
-        return testService.getListItemCountInList(1);
     }
 }

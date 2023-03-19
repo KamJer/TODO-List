@@ -50,4 +50,17 @@ public class User {
     public void setName(String name) {
         this.name = name;
     }
+
+    /**
+     * Checks if data in a user is correct (login has to be shorter than 10)
+     * @param user - user data to check
+     * @return true if data checks out, false if not
+     */
+    static public boolean validateUserData(User user){
+        if (user.getLogin().length() >= 10) {
+            System.out.println("test 1");
+            return false;
+        }
+        return true;
+    }
 }
