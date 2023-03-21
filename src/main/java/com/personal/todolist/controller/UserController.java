@@ -25,7 +25,7 @@ public class UserController {
     }
 
     @GetMapping("/user/read/{id}")
-    public User getUser(@PathVariable long id) throws CustomException {
+    public User getUserById(@PathVariable long id) throws CustomException {
      return service.getUserById(id);
     }
 

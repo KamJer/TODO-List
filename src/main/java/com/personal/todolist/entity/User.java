@@ -1,10 +1,23 @@
 package com.personal.todolist.entity;
 
 import jakarta.persistence.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
 @Table(name = "USER")
 public class User {
+
+    public User(String login, String password, String name) {
+        this.id = id;
+        this.login = login;
+        this.password = password;
+        this.name = name;
+    }
+
+    @Autowired
+    public User() {
+    }
+
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="ID")
@@ -21,10 +34,6 @@ public class User {
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getLogin() {
@@ -58,9 +67,21 @@ public class User {
      */
     static public boolean validateUserData(User user){
         if (user.getLogin().length() >= 10) {
-            System.out.println("test 1");
             return false;
         }
         return true;
+    }
+
+    public boolean isUserTheSame(User user) {
+        if (this.getLogin().equals(user.getLogin()) & this.getPassword().equals(user.getPassword()) & this.getName().equals(user.getName())) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        String user = getLogin() + " : " + getPassword() + " : " + getName();
+        return user;
     }
 }
