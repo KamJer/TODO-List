@@ -12,6 +12,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class RestExceptionInterceptor extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = { IllegalArgumentException.class, IllegalStateException.class })
     public ResponseEntity<Object> handleConflict(RuntimeException ex, WebRequest request) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).contentType(MediaType.APPLICATION_JSON).body(ex);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).contentType(MediaType.APPLICATION_JSON).body(ex.getMessage());
  }
 }
