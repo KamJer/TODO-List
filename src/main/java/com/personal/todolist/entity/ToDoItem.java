@@ -1,23 +1,18 @@
 package com.personal.todolist.entity;
 
+import com.personal.todolist.Stage;
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "TODOITEM")
 public class ToDoItem {
-
-    public enum Stage {
-        TODO,
-        IN_PROGRESS,
-        DONE
-    }
-
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="ID")
-    private Long id;
+    private long id;
 
     @Column(name="VALUE")
     private String value;
@@ -27,7 +22,7 @@ public class ToDoItem {
     private Stage stage;
 
     @Column(name="UPDATED_TIMESTAMP")
-    private Timestamp updatedTimestamp;
+    private LocalDateTime updatedTimestamp;
 
     @ManyToOne
     @JoinColumn(name = "LIST_ID", referencedColumnName = "ID")
@@ -35,10 +30,6 @@ public class ToDoItem {
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getValue() {
@@ -49,27 +40,19 @@ public class ToDoItem {
         this.value = value;
     }
 
-    public String getStage() {
-        return stage.toString();
+    public Stage getStage() {
+        return stage;
     }
 
     public void setStage(Stage stage) {
         this.stage = stage;
     }
 
-    public Timestamp getUpdatedTimestamp() {
+    public LocalDateTime getUpdatedTimestamp() {
         return updatedTimestamp;
     }
 
-    public void setUpdatedTimestamp(Timestamp updatedTimestamp) {
+    public void setUpdatedTimestamp(LocalDateTime updatedTimestamp) {
         this.updatedTimestamp = updatedTimestamp;
-    }
-
-    public ToDoList getToDoList() {
-        return toDoList;
-    }
-
-    public void setToDoList(ToDoList toDoList) {
-        this.toDoList = toDoList;
     }
 }

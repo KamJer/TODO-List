@@ -1,14 +1,21 @@
 package com.personal.todolist.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "TODOLIST")
 public class ToDoList {
+
+    public ToDoList(String name) {
+        this.name = name;
+    }
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -18,18 +25,15 @@ public class ToDoList {
     @Column(name="NAME")
     private String name;
 
-    @Column(name="UPDATED_TIMESTAMP")
-    private Timestamp updatedTimestamp;
+    @Column(name="UPDATED_TIMESTAMP", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @CreationTimestamp
+    private LocalDateTime updatedTimestamp;
 
-    @OneToMany(mappedBy = "toDoList")
+    @OneToMany(mappedBy = "toDoList", fetch = FetchType.EAGER)
     private List<ToDoItem> toDoItemList;
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -40,11 +44,11 @@ public class ToDoList {
         this.name = name;
     }
 
-    public Timestamp getUpdatedTimestamp() {
+    public LocalDateTime getUpdatedTimestamp() {
         return updatedTimestamp;
     }
 
-    public void setUpdatedTimestamp(Timestamp updatedTimestamp) {
+    public void setUpdatedTimestamp(LocalDateTime updatedTimestamp) {
         this.updatedTimestamp = updatedTimestamp;
     }
 
@@ -54,5 +58,15 @@ public class ToDoList {
 
     public void setToDoItemList(List<ToDoItem> toDoItemList) {
         this.toDoItemList = toDoItemList;
+    }
+
+    @Override
+    public int hashCode() {
+        return  (id.intValue()) * name.hashCode() * updatedTimestamp.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.hashCode() == obj.hashCode();
     }
 }

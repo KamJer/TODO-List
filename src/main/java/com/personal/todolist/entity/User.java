@@ -7,15 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Table(name = "USER")
 public class User {
 
-    public User(String login, String password, String name) {
+    public User(long id, String login, String password, String name) {
         this.id = id;
         this.login = login;
         this.password = password;
         this.name = name;
     }
 
-    @Autowired
-    public User() {
+    public User(String login, String password, String name) {
+        this.login = login;
+        this.password = password;
+        this.name = name;
     }
 
     @Id
@@ -72,11 +74,14 @@ public class User {
         return true;
     }
 
-    public boolean isUserTheSame(User user) {
-        if (this.getLogin().equals(user.getLogin()) & this.getPassword().equals(user.getPassword()) & this.getName().equals(user.getName())) {
-            return true;
-        }
-        return false;
+    @Override
+    public int hashCode() {
+        return  (id.intValue()) * name.hashCode() * password.hashCode() * login.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.hashCode() == obj.hashCode();
     }
 
     @Override

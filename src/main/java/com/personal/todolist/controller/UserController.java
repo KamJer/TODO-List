@@ -1,36 +1,45 @@
 package com.personal.todolist.controller;
 
 import com.personal.todolist.entity.User;
-import com.personal.todolist.exceptions.CustomException;
+import com.personal.todolist.exceptions.UserException;
 import com.personal.todolist.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.logging.Logger;
+
 @RestController
+@RequestMapping(path = "/user")
 public class UserController {
 
-    private UserService service;
-    @Autowired
+    private final UserService userService;
+
+    private Logger log = Logger.getLogger(UserController.class.getName());
+
+
     public UserController(UserService service){
-        this.service = service;
+        this.userService = service;
     }
 
-    @PutMapping("/user/update/{id}")
-    public User updateUser(@RequestBody User user, @PathVariable long id) throws CustomException {
-        return service.updateUser(user, id);
+    @PutMapping("/update/{id}")
+    public User updateUser(@RequestBody User user, @PathVariable long id) throws UserException {
+        log.info("PUT /user/update/" + id + " : " + user.toString());
+        return userService.updateUser(user);
     }
-    @PostMapping("/user/add")
-    public User postUser(@RequestBody User user) throws CustomException {
-        return service.postUser(user);
-    }
-
-    @GetMapping("/user/read/{id}")
-    public User getUserById(@PathVariable long id) throws CustomException {
-     return service.getUserById(id);
+    @PostMapping("/add")
+    public User postUser(@RequestBody User user) throws UserException {
+        log.info("POST /user/add" + " : " + user.toString());
+        return userService.insertUser(user);
     }
 
-    @DeleteMapping("/user/delete")
+    @GetMapping("/read/{id}")
+    public User getUserById(@PathVariable long id) throws UserException {
+        log.info("GET /user/read/" + id);
+        return userService.getUserById(id);
+    }
+
+    @DeleteMapping("/delete/{id}")
     public void deleteUserById(@PathVariable long id) {
-        service.deleteUser(id);
+        log.info("DELETE /user/delete/" + id);
+        userService.deleteUser(id);
     }
 }

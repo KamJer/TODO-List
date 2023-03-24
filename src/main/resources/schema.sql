@@ -10,7 +10,7 @@ CREATE TABLE TODOLIST (
     id INTEGER NOT NULL AUTO_INCREMENT,
     user_id INTEGER NOT NULL,
     name VARCHAR(128),
-    updated_timestamp TIMESTAMP,
+    updated_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES "USER"(id)
      );
@@ -20,7 +20,7 @@ CREATE TABLE TODOITEM (
      list_id INTEGER NOT NULL,
      "VALUE" VARCHAR(128),
      stage VARCHAR(128) NOT NULL,
-     updated_timestamp TIMESTAMP,
+     updated_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
      PRIMARY KEY (id),
      FOREIGN KEY (list_id) REFERENCES TODOLIST(id)
      );
