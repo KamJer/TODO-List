@@ -67,12 +67,12 @@ public class User {
      * @param user - user data to check
      * @return true if data checks out, false if not
      */
-    static public boolean validateUserData(User user){
-        if (user.getLogin().length() >= 10) {
-            return false;
-        }
-        return true;
-    }
+//    static public boolean validateUserData(User user){
+//        if (user.getLogin().length() >= 10) {
+//            return false;
+//        }
+//        return true;
+//    }
 
     @Override
     public int hashCode() {

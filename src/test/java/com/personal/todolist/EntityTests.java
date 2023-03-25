@@ -36,7 +36,7 @@ public class EntityTests {
     @Test
     @Order(1)
     void postUserTest() throws UserException {
-        User userToTest = userController.postUser(userCheck);
+        User userToTest = userController.putUser(userCheck);
         long userId = lastInsertedUserId(userRepository);
         Assertions.assertTrue(userRepository.existsById(userId));
     }
@@ -72,7 +72,7 @@ public class EntityTests {
     void postUserExceptionTest() throws UserException {
         Exception exception = Assertions.assertThrows(UserException.class, () -> {
             User userToTest = new User("MuchToLongLogin", "test", "Kamil" );
-            userController.postUser(userToTest);
+            userController.putUser(userToTest);
         });
 
         String expectedMessage = "Login can not be longer than 10 characters";

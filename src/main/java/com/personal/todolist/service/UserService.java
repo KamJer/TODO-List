@@ -12,10 +12,12 @@ import java.util.Optional;
 public class UserService {
 
     private UserRepository userRepository;
+    private UserValidationService userValidationService;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, UserValidationService userValidationService) {
         this.userRepository = userRepository;
+        this.userValidationService = userValidationService;
     }
 
     /**
@@ -24,7 +26,7 @@ public class UserService {
      * @throws UserException
      */
     public User insertUser(User user) throws UserException {
-        if (!User.validateUserData(user)) {
+        if (!userValidationService.validateInfo(user)) {
             throw new UserException("Login can not be longer than 10 characters");
         };
         return userRepository.save(user);
@@ -36,7 +38,7 @@ public class UserService {
      * @throws UserException
      */
     public User updateUser(User user) throws UserException {
-        if (!User.validateUserData(user)) {
+        if (!userValidationService.validateInfo(user)) {
             throw new UserException("Login can not be longer than 10 characters");
         }
         if (user.getId().equals(null)) {

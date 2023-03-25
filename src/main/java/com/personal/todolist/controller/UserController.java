@@ -20,14 +20,14 @@ public class UserController {
         this.userService = service;
     }
 
-    @PutMapping("/update/{id}")
+    @PostMapping("/update/{id}")
     public User updateUser(@RequestBody User user, @PathVariable long id) throws UserException {
-        log.info("PUT /user/update/" + id + " : " + user.toString());
+        log.info("POST /user/update/" + id + " : " + user.toString());
         return userService.updateUser(user);
     }
-    @PostMapping("/add")
-    public User postUser(@RequestBody User user) throws UserException {
-        log.info("POST /user/add" + " : " + user.toString());
+    @PutMapping("/add")
+    public User putUser(@RequestBody User user) throws UserException {
+        log.info("PUT /user/add" + " : " + user.toString());
         return userService.insertUser(user);
     }
 
