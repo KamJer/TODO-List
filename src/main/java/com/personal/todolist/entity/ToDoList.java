@@ -17,6 +17,9 @@ public class ToDoList {
         this.name = name;
     }
 
+    public ToDoList() {
+    }
+
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="ID")
@@ -68,5 +71,10 @@ public class ToDoList {
     @Override
     public boolean equals(Object obj) {
         return this.hashCode() == obj.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "NAME: " + name;
     }
 }

@@ -20,6 +20,9 @@ public class User {
         this.name = name;
     }
 
+    public User() {
+    }
+
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="ID")
@@ -36,6 +39,13 @@ public class User {
 
     public Long getId() {
         return id;
+    }
+
+    /**
+     * Method used only for testing
+     */
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getLogin() {
@@ -61,18 +71,6 @@ public class User {
     public void setName(String name) {
         this.name = name;
     }
-
-    /**
-     * Checks if data in a user is correct (login has to be shorter than 10)
-     * @param user - user data to check
-     * @return true if data checks out, false if not
-     */
-//    static public boolean validateUserData(User user){
-//        if (user.getLogin().length() >= 10) {
-//            return false;
-//        }
-//        return true;
-//    }
 
     @Override
     public int hashCode() {
