@@ -70,7 +70,7 @@ public class UserService {
      * Deletes user from database
      * @param id - id of a user to delete
      */
-    public void deleteUser(long id) {
+    public void deleteUserById(long id) {
         userRepository.deleteById(id);
     }
 }

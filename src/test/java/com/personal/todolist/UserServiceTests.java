@@ -17,18 +17,17 @@ import java.util.Optional;
 class UserServiceTests {
 
     private long userId = 50;
-    User userKamil = new User(userId, "kamjer", "password", "Kamil");
-    User userKamilUpdated = new User(userId, "kamjer97", "password", "Kamil");
+    private User userKamil = new User(userId, "kamjer", "password", "Kamil");
+    private User userKamilUpdated = new User(userId, "kamjer97", "password", "Kamil");
 
     @MockBean
     UserRepository userRepository;
 
-//    @InjectMocks
     @Autowired
     UserService userService;
 
     @Test
-    void saveUserTest() throws UserException {
+    void insertUserTest() throws UserException {
         Mockito.when(userRepository.save(userKamil)).thenReturn(userKamil);
         Assertions.assertEquals(userService.insertUser(userKamil), userKamil);
     }
@@ -37,16 +36,27 @@ class UserServiceTests {
         Mockito.when(userRepository.findById(userId)).thenReturn(Optional.of(userKamil));
         Assertions.assertEquals(userService.getUserById(userId), userKamil);
     }
-
     @Test
-    void updateUser() throws UserException {
+    void updateUserTest() throws UserException {
         Mockito.when(userRepository.save(userKamilUpdated)).thenReturn(userKamilUpdated);
         Assertions.assertEquals(userService.updateUser(userKamilUpdated), userKamilUpdated);
     }
+    @Test
+    void deleteUserByIdTest() throws UserException {
+        userService.deleteUserById(userKamil.getId());
+        Mockito.verify(userRepository, Mockito.times(1)).deleteById(userId);
+    }
 
     @Test
-    void deleteUserTest() throws UserException {
-        userService.deleteUser(userKamil.getId());
-        Mockito.verify(userRepository, Mockito.times(1)).deleteById(userId);
+    public void updateUserUserExceptionLoginToLongTest() {
+        User usetTest = new User(userId, "ThisLoginIsWayToLong", "password", "Kamil");
+        Exception exception = Assertions.assertThrows(UserException.class, () -> {
+            User userToTest = userService.updateUser(usetTest);
+        });
+
+        String expectedMessage = "Login can not be longer than 10 characters";
+        String actualMessage = exception.getMessage();
+
+        Assertions.assertTrue(expectedMessage.contains(actualMessage));
     }
 }

@@ -21,13 +21,13 @@ public class UserController {
     }
 
     @PostMapping("/update/{id}")
-    public User updateUser(@RequestBody User user, @PathVariable long id) throws UserException {
-        log.info("POST /user/update/" + id + " : " + user.toString());
+    public User updateUser(@RequestBody User user) throws UserException {
+        log.info("POST /user/update/" + user.getId() + " : " + user);
         return userService.updateUser(user);
     }
     @PutMapping("/add")
     public User putUser(@RequestBody User user) throws UserException {
-        log.info("PUT /user/add" + " : " + user.toString());
+        log.info("PUT /user/add" + " : " + user);
         return userService.insertUser(user);
     }
 
@@ -40,6 +40,6 @@ public class UserController {
     @DeleteMapping("/delete/{id}")
     public void deleteUserById(@PathVariable long id) {
         log.info("DELETE /user/delete/" + id);
-        userService.deleteUser(id);
+        userService.deleteUserById(id);
     }
 }

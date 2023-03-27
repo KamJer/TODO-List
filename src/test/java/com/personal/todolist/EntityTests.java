@@ -55,7 +55,7 @@ public class EntityTests {
     void updateUserTest() throws UserException {
         long userId = lastInsertedUserId(userRepository);
         User userUpdated = new User(userId, "Kamila", "test", "Kamila");
-        User userToTest = userController.updateUser(userUpdated, userId);
+        User userToTest = userController.updateUser(userUpdated);
         Assertions.assertTrue(userToTest.equals(userUpdated));
     }
 
