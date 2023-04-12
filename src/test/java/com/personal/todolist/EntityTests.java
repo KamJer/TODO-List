@@ -19,7 +19,6 @@ import java.util.List;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class EntityTests {
 
-    private ToDoList listCheck = new ToDoList("Testowa nazwa");
     @Autowired
     UserRepository userRepository;
 
@@ -91,39 +90,47 @@ public class EntityTests {
         Assertions.assertTrue(actualMessage.equals(expectedMessage));
     }
 
-//    @Test
-//    @Order(7)
-//    void postToDoListTest() throws ToDoListException {
-//        listController.postToDoList(listCheck);
-//        long listId = lastInsertedToDoListId(listRepository);
-//        Assertions.assertTrue(listRepository.existsById(listId));
-//    }
-//
-//    @Test
-//    @Order(8)
-//    void getToDoItemListByIdTest() throws ToDoListException {
-//        long userId = lastInsertedToDoListId(listRepository);
-//
-//        ToDoList toDoListToTest = listController.getToDoListById(userId);
-//        Assertions.assertTrue(toDoListToTest.equals(listCheck));
-//    }
-//
-//    @Test
-//    @Order(9)
-//    void updateToDoListTest() throws ToDoListException {
-//        ToDoList listUpdated = new ToDoList("Testowy 2");
-//        long userId = lastInsertedToDoListId(listRepository);
-//        ToDoList toDoListToTest = listController.updateToDoList(listUpdated, userId);
-//        Assertions.assertTrue(toDoListToTest.equals(listUpdated));
-//    }
-//
-//    @Test
-//    @Order(10)
-//    void deleteToDoListTest() throws ToDoListException {
-//        long userId = lastInsertedToDoListId(listRepository);
-//        listController.deleteToDoListById(userId);
-//        Assertions.assertFalse(listRepository.existsById(userId));
-//    }
+    @Test
+    @Order(7)
+    void postToDoListTest() throws ToDoListException {
+        ToDoList listCheck = new ToDoList(1, "Testowa nazwa");
+        listController.postToDoList(listCheck);
+        long listId = lastInsertedToDoListId(listRepository);
+        Assertions.assertTrue(listRepository.existsById(listId));
+    }
+
+    @Test
+    @Order(8)
+    void getToDoItemListByIdTest() throws ToDoListException {
+        long toDoListId = lastInsertedToDoListId(listRepository);
+        ToDoList listCheck = new ToDoList(toDoListId, 1, "Testowa nazwa");
+
+        ToDoList toDoListToTest = listController.getToDoListById(toDoListId);
+        System.out.println(toDoListToTest);
+        System.out.println();
+        System.out.println(listCheck);
+
+        Assertions.assertTrue(toDoListToTest.equals(listCheck));
+    }
+
+    @Test
+    @Order(9)
+    void updateToDoListTest() throws ToDoListException {
+        ToDoList listUpdated = new ToDoList(lastInsertedToDoListId(listRepository), 1, "Testowy 2");
+        long toDoListId = lastInsertedToDoListId(listRepository);
+        ToDoList toDoListToTest = listController.updateToDoList(listUpdated, toDoListId);
+        Assertions.assertEquals(toDoListToTest, listUpdated);
+    }
+
+    @Test
+    @Order(10)
+    void deleteToDoListTest() throws ToDoListException {
+        long userId = lastInsertedToDoListId(listRepository);
+        listController.deleteToDoListById(userId);
+        Assertions.assertFalse(listRepository.existsById(userId));
+    }
+
+
 
     public static long lastInsertedUserId(JpaRepository userRepository) {
         List<User> testlist = userRepository.findAll();

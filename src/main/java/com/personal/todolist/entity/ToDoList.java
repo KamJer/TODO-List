@@ -3,6 +3,7 @@ package com.personal.todolist.entity;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -13,7 +14,15 @@ import java.util.List;
 @Table(name = "TODOLIST")
 public class ToDoList {
 
-    public ToDoList(String name) {
+    public ToDoList(long userId, String name) {
+        this.userId = userId;
+        this.updatedTimestamp = LocalDateTime.now();
+        this.name = name;
+    }
+    public ToDoList(long id, long userId, String name) {
+        this.id = id;
+        this.userId = userId;
+        this.updatedTimestamp = LocalDateTime.now();
         this.name = name;
     }
 
@@ -25,6 +34,9 @@ public class ToDoList {
     @Column(name="ID")
     private Long id;
 
+    @Column(name="USER_ID")
+    private Long userId;
+
     @Column(name="NAME")
     private String name;
 
@@ -34,6 +46,29 @@ public class ToDoList {
 
     @OneToMany(mappedBy = "toDoList", fetch = FetchType.EAGER)
     private List<ToDoItem> toDoItemList;
+
+    @Override
+    public int hashCode() {
+        return  (id.intValue()) + userId.intValue() * name.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.hashCode() == obj.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "ID: " + id + ", USER_ID: " + userId +  ", NAME: " + name + ", TIME_STAMP:" + updatedTimestamp;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
     public Long getId() {
         return id;
@@ -61,20 +96,5 @@ public class ToDoList {
 
     public void setToDoItemList(List<ToDoItem> toDoItemList) {
         this.toDoItemList = toDoItemList;
-    }
-
-    @Override
-    public int hashCode() {
-        return  (id.intValue()) * name.hashCode() * updatedTimestamp.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return this.hashCode() == obj.hashCode();
-    }
-
-    @Override
-    public String toString() {
-        return "NAME: " + name;
     }
 }
