@@ -6,9 +6,11 @@ import com.personal.todolist.service.ToDoListService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.logging.Logger;
 
-@Controller
+@RestController
+@RequestMapping(path = "/toDoList")
 public class ToDoListController {
 
     private ToDoListService toDoListService;
@@ -29,22 +31,26 @@ public class ToDoListController {
      * @param toDoList - data to add
      * @throws ToDoListException
      */
-    @PostMapping("/toDoList/add")
+    @PostMapping("/add")
     public ToDoList postToDoList(@RequestBody ToDoList toDoList) throws ToDoListException {
         log.info("POST /toDoList/add" + " : " + toDoList.toString());
         return toDoListService.postToDoList(toDoList);
     }
 
-    @GetMapping("/toDoList/read/{id}")
+    @GetMapping("/read/{id}")
     public ToDoList getToDoListById(@PathVariable long id) throws ToDoListException {
         log.info("GET /toDoList/read/" + id);
         return toDoListService.getToDoListById(id);
     }
 
-    @DeleteMapping("/toDoList/delete/{id}")
+    @GetMapping("/read/user/{userId}")
+    public List<ToDoList> getToDoListsWithUserId(@PathVariable long userId) throws ToDoListException {
+        log.info("GET /toDoList/read/user/" + userId);
+        return toDoListService.getToDoListsByUserId(userId);
+    }
+    @DeleteMapping("/delete/{id}")
     public void deleteToDoListById(@PathVariable long id) {
         log.info("DELETE /toDoList/delete/" + id);
         toDoListService.deleteToDoList(id);
     }
-
 }

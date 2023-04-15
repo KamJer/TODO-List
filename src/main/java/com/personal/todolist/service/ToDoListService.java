@@ -6,6 +6,8 @@ import com.personal.todolist.repository.ToDoListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -65,5 +67,13 @@ public class ToDoListService {
      */
     public void deleteToDoList(long id) {
         toDoListRepository.deleteById(id);
+    }
+
+    /**
+     * returns List of oll the toDoList with given user Id
+     * @param userId - id of a user that awns the
+     */
+    public List<ToDoList> getToDoListsByUserId(long userId) throws ToDoListException{
+        return toDoListRepository.findAllByUserId(userId);
     }
 }

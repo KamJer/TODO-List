@@ -42,4 +42,7 @@ public class UserController {
         log.info("DELETE /user/delete/" + id);
         userService.deleteUserById(id);
     }
+
+
+
 }
