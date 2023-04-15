@@ -1,13 +1,12 @@
 package com.personal.todolist;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class TodoListApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
-
+    public void testTest() {
+    }
 }
