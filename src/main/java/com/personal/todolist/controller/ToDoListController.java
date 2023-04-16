@@ -93,5 +93,5 @@ public class ToDoListController {
     public void deleteToDoListById(@PathVariable long id) {
         log.info("DELETE /toDoList/delete/" + id);
         toDoListService.deleteToDoList(id);
-    }
+            }
 }

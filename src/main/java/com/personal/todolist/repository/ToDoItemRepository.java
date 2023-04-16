@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ToDoItemRepository extends JpaRepository<ToDoItem, Long> {
+    public void deleteByListId(long listId);
 }

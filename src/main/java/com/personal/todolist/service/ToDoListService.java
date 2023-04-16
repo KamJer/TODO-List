@@ -71,6 +71,7 @@ public class ToDoListService {
      */
     public void deleteToDoList(long id) {
         toDoListRepository.deleteById(id);
+        toDoItemRepository.deleteByListId(id);
     }
 
     /**
