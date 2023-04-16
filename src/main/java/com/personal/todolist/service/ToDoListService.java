@@ -1,5 +1,6 @@
 package com.personal.todolist.service;
 
+import com.personal.todolist.entity.ToDoItem;
 import com.personal.todolist.entity.ToDoList;
 import com.personal.todolist.exceptions.ToDoListException;
 import com.personal.todolist.repository.ToDoListRepository;
@@ -75,5 +76,13 @@ public class ToDoListService {
      */
     public List<ToDoList> getToDoListsByUserId(long userId) throws ToDoListException{
         return toDoListRepository.findAllByUserId(userId);
+    }
+
+    /**
+     * returns a list of all items from a ToDoList
+     * @param listId - id of a toDoList
+     */
+    public List<ToDoItem> getToDoItemsOwned(long listId) {
+        return toDoListRepository.findById(listId).get().getToDoItemList();
     }
 }

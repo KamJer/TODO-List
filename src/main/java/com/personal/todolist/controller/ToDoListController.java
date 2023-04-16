@@ -1,5 +1,6 @@
 package com.personal.todolist.controller;
 
+import com.personal.todolist.entity.ToDoItem;
 import com.personal.todolist.entity.ToDoList;
 import com.personal.todolist.exceptions.ToDoListException;
 import com.personal.todolist.service.ToDoListService;
@@ -37,17 +38,42 @@ public class ToDoListController {
         return toDoListService.postToDoList(toDoList);
     }
 
+    /**
+     * returns toDoList by its id
+     * @param id - id of a ToDoList
+     * @throws ToDoListException
+     */
     @GetMapping("/read/{id}")
     public ToDoList getToDoListById(@PathVariable long id) throws ToDoListException {
         log.info("GET /toDoList/read/" + id);
         return toDoListService.getToDoListById(id);
     }
 
+    /**
+     * returns a list of toDoLists queried by its user id
+     * @param userId - id of a user that owns a lists
+     * @throws ToDoListException
+     */
     @GetMapping("/read/user/{userId}")
     public List<ToDoList> getToDoListsWithUserId(@PathVariable long userId) throws ToDoListException {
         log.info("GET /toDoList/read/user/" + userId);
         return toDoListService.getToDoListsByUserId(userId);
     }
+
+    /**
+     * returns a list of all ToDoItems owned by a ToDoList
+     * @param listId - id of a list to query
+     * @throws ToDoListException
+     */
+    @GetMapping("/read/ToDoItems/{listId}")
+    public List<ToDoItem> getToDoItemsFromList(@PathVariable long listId) throws ToDoListException {
+        return  toDoListService.getToDoItemsOwned(listId);
+    }
+
+    /**
+     * deletes a ToDoList
+     * @param id - id of a list to remove
+     */
     @DeleteMapping("/delete/{id}")
     public void deleteToDoListById(@PathVariable long id) {
         log.info("DELETE /toDoList/delete/" + id);
