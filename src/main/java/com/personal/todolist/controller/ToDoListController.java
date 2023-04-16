@@ -22,20 +22,23 @@ public class ToDoListController {
         this.toDoListService = service;
     }
 
-    @PutMapping("/toDoList/update/{id}")
+    @PutMapping("/update/{id}")
     public ToDoList updateToDoList(@RequestBody ToDoList toDoList, @PathVariable long id) throws ToDoListException {
         log.info("PUT /toDoList/update/" + id + " : " + toDoList.toString());
         return toDoListService.updateToDoList(toDoList, id);
     }
 
+    @PutMapping("/update/toDoItem")
+    public ToDoItem updateToDoItemInAToDoList(@RequestBody ToDoItem item, @PathVariable long id) throws ToDoListException {
+        return toDoListService.updateToDoItemToTheList(item, id);
+    }
     /**
-
      adds new ToDoItem to the ToDoList.
      @param toDoItem the new ToDoItem to be added to the list
      @throws ToDoListException if there is an error adding the ToDoItem to the list
      */
 
-    @PostMapping
+    @PostMapping("/update/item")
     public ToDoItem postToDoItemToDoList(@RequestBody ToDoItem toDoItem) throws ToDoListException {
         return toDoListService.postToDoItemToTheList(toDoItem);
     }

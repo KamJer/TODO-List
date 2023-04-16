@@ -68,7 +68,6 @@ public class ToDoListService {
     /**
      * deletes ToDoList from database
      * @param id - id of a list to delete
-     * @throws ToDoListException
      */
     public void deleteToDoList(long id) {
         toDoListRepository.deleteById(id);
@@ -77,6 +76,7 @@ public class ToDoListService {
     /**
      * returns List of oll the toDoList with given user Id
      * @param userId - id of a user that awns the
+     * @throws ToDoListException
      */
     public List<ToDoList> getToDoListsByUserId(long userId) throws ToDoListException{
         return toDoListRepository.findAllByUserId(userId);
@@ -85,17 +85,39 @@ public class ToDoListService {
     /**
      * returns a list of all items from a ToDoList
      * @param listId - id of a toDoList
+     * @throws ToDoListException
      */
-    public List<ToDoItem> getToDoItemsOwned(long listId) {
+    public List<ToDoItem> getToDoItemsOwned(long listId) throws ToDoListException{
         return toDoListRepository.findById(listId).get().getToDoItemList();
     }
 
     /**
-     * adds a toDoItem to the database
-     * @param item
-     * @return
+     * adds a toDoItem to the database, listId
+     * @param item that was posted
+     * @return posted item
+     * @throws ToDoListException
      */
-    public ToDoItem postToDoItemToTheList(ToDoItem item) {
+    public ToDoItem postToDoItemToTheList(ToDoItem item) throws ToDoListException{
         return toDoItemRepository.save(item);
+    }
+
+    /**
+     * updates toDoItem
+     * @param item with updated data
+     * @param id of an item to update
+     * @return updated item
+     * @throws ToDoListException
+     */
+    public ToDoItem updateToDoItemToTheList(ToDoItem item, long id) throws ToDoListException {
+        Optional<ToDoItem> testToDoItem = toDoItemRepository.findById(id);
+        if (testToDoItem.isEmpty())
+            throw new ToDoListException("No such ToDoItem found");
+
+        return testToDoItem.map(foundToDoItem -> {
+            foundToDoItem.setValue(item.getValue());
+            foundToDoItem.setStage(item.getStage());
+            foundToDoItem.setUpdatedTimestamp(item.getUpdatedTimestamp());
+            return toDoItemRepository.save(foundToDoItem);
+        }).get();
     }
 }
