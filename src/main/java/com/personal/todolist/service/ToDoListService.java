@@ -3,6 +3,7 @@ package com.personal.todolist.service;
 import com.personal.todolist.entity.ToDoItem;
 import com.personal.todolist.entity.ToDoList;
 import com.personal.todolist.exceptions.ToDoListException;
+import com.personal.todolist.repository.ToDoItemRepository;
 import com.personal.todolist.repository.ToDoListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,9 +17,12 @@ public class ToDoListService {
 
     private ToDoListRepository toDoListRepository;
 
+    private ToDoItemRepository toDoItemRepository;
+
     @Autowired
-    public ToDoListService(ToDoListRepository toDoListRepository) {
+    public ToDoListService(ToDoListRepository toDoListRepository, ToDoItemRepository toDoItemRepository) {
         this.toDoListRepository = toDoListRepository;
+        this.toDoItemRepository = toDoItemRepository;
     }
 
     /**
@@ -84,5 +88,14 @@ public class ToDoListService {
      */
     public List<ToDoItem> getToDoItemsOwned(long listId) {
         return toDoListRepository.findById(listId).get().getToDoItemList();
+    }
+
+    /**
+     * adds a toDoItem to the database
+     * @param item
+     * @return
+     */
+    public ToDoItem postToDoItemToTheList(ToDoItem item) {
+        return toDoItemRepository.save(item);
     }
 }

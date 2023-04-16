@@ -27,6 +27,18 @@ public class ToDoListController {
         log.info("PUT /toDoList/update/" + id + " : " + toDoList.toString());
         return toDoListService.updateToDoList(toDoList, id);
     }
+
+    /**
+
+     adds new ToDoItem to the ToDoList.
+     @param toDoItem the new ToDoItem to be added to the list
+     @throws ToDoListException if there is an error adding the ToDoItem to the list
+     */
+
+    @PostMapping
+    public ToDoItem postToDoItemToDoList(@RequestBody ToDoItem toDoItem) throws ToDoListException {
+        return toDoListService.postToDoItemToTheList(toDoItem);
+    }
     /**
      * Adds new ToDoList to the database
      * @param toDoList - data to add
