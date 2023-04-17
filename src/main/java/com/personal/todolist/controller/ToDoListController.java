@@ -3,6 +3,7 @@ package com.personal.todolist.controller;
 import com.personal.todolist.entity.ToDoItem;
 import com.personal.todolist.entity.ToDoList;
 import com.personal.todolist.exceptions.ToDoListException;
+import com.personal.todolist.exceptions.UserException;
 import com.personal.todolist.service.ToDoListService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -28,8 +29,9 @@ public class ToDoListController {
         return toDoListService.updateToDoList(toDoList, id);
     }
 
-    @PutMapping("/update/toDoItem")
+    @PutMapping("/update/toDoItem/{id}")
     public ToDoItem updateToDoItemInAToDoList(@RequestBody ToDoItem item, @PathVariable long id) throws ToDoListException {
+        log.info("PUT /toDoList/update/toDoItem/" + + id + " : " + item.toString());
         return toDoListService.updateToDoItemToTheList(item, id);
     }
     /**
@@ -38,8 +40,9 @@ public class ToDoListController {
      @throws ToDoListException if there is an error adding the ToDoItem to the list
      */
 
-    @PostMapping("/update/item")
+    @PostMapping("/add/item")
     public ToDoItem postToDoItemToDoList(@RequestBody ToDoItem toDoItem) throws ToDoListException {
+        log.info("POST /toDoList/add/item" + " : " + toDoItem.toString());
         return toDoListService.postToDoItemToTheList(toDoItem);
     }
     /**
@@ -48,7 +51,7 @@ public class ToDoListController {
      * @throws ToDoListException
      */
     @PostMapping("/add")
-    public ToDoList postToDoList(@RequestBody ToDoList toDoList) throws ToDoListException {
+    public ToDoList postToDoList(@RequestBody ToDoList toDoList) throws UserException {
         log.info("POST /toDoList/add" + " : " + toDoList.toString());
         return toDoListService.postToDoList(toDoList);
     }
@@ -82,6 +85,7 @@ public class ToDoListController {
      */
     @GetMapping("/read/ToDoItems/{listId}")
     public List<ToDoItem> getToDoItemsFromList(@PathVariable long listId) throws ToDoListException {
+        log.info("GET /toDoList//read/ToDoItems/" + listId);
         return  toDoListService.getToDoItemsOwned(listId);
     }
 

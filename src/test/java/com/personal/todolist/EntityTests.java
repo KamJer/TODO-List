@@ -92,7 +92,7 @@ public class EntityTests {
 
     @Test
     @Order(7)
-    void postToDoListTest() throws ToDoListException {
+    void postToDoListTest() throws UserException {
         ToDoList listCheck = new ToDoList(1, "Testowa nazwa");
         listController.postToDoList(listCheck);
         long listId = lastInsertedToDoListId(listRepository);

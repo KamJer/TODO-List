@@ -9,6 +9,15 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "TODOITEM")
 public class ToDoItem {
+
+    public ToDoItem(long id, String value, Stage stage, ToDoList toDoList) {
+        this.id = id;
+        this.value = value;
+        this.stage = stage;
+        this.updatedTimestamp = LocalDateTime.now();
+        this.toDoList = toDoList;
+    }
+
     public ToDoItem() {
     }
 
@@ -57,5 +66,9 @@ public class ToDoItem {
 
     public void setUpdatedTimestamp(LocalDateTime updatedTimestamp) {
         this.updatedTimestamp = updatedTimestamp;
+    }
+
+    public ToDoList getToDoList() {
+        return toDoList;
     }
 }
