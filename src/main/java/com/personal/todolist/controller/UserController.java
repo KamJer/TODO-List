@@ -20,7 +20,7 @@ public class UserController {
         this.userService = service;
     }
 
-    @PostMapping("/update/{id}")
+    @PostMapping("/update")
     public User updateUser(@RequestBody User user) throws UserException {
         log.info("POST /user/update/" + user.getId() + " : " + user);
         return userService.updateUser(user);
@@ -42,4 +42,7 @@ public class UserController {
         log.info("DELETE /user/delete/" + id);
         userService.deleteUserById(id);
     }
+
+
+
 }
